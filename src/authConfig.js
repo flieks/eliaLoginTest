@@ -53,8 +53,12 @@ export const msalConfig = {
  * For more information about OIDC scopes, visit: 
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
-export const loginRequest = {
-    scopes: ["User.Read", "openid", "profile", "email"]
+export const loginRequest = (readCalendars) => {
+    const scopes = ["User.Read"] //"openid", "profile", "email"
+    if(readCalendars) {
+        scopes.push("Calendars.Read")
+    }
+    return { scopes }
 };
 
 /**
@@ -62,5 +66,6 @@ export const loginRequest = {
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
  */
 export const graphConfig = {
-    graphMeEndpoint: "https://graph.microsoft.com/v1.0/me"
+    graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
+    graphCalendarsEndpoint: "https://graph.microsoft.com/v1.0/me/calendars"
 };

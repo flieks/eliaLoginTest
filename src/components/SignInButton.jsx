@@ -7,16 +7,19 @@ import Dropdown from "react-bootstrap/esm/Dropdown";
 /**
  * Renders a drop down button with child buttons for logging in with a popup or redirect
  */
-export const SignInButton = () => {
+export const SignInButton = (props) => {
     const { instance } = useMsal();
+    
+    const {readCalendars} = props
+    const requestData = loginRequest(readCalendars)
 
     const handleLogin = (loginType) => {
         if (loginType === "popup") {
-            instance.loginPopup(loginRequest).catch(e => {
+            instance.loginPopup(requestData).catch(e => {
                 console.log(e);
             });
         } else if (loginType === "redirect") {
-            instance.loginRedirect(loginRequest).catch(e => {
+            instance.loginRedirect(requestData).catch(e => {
                 console.log(e);
             });
         }
